@@ -29,7 +29,7 @@ int binary_to_decimal(string bin) {
 int main() {
 
     ios_base::sync_with_stdio(false);
-   
+
     string code, decimal = "", binary = "", decrypted = "", binary_segment = "";
     getline(cin, code);
 
@@ -46,18 +46,23 @@ int main() {
     
     char asciiChar;
 
-    //this part not working for some reason
+    //FIXED IT
     for (int i = 0; i < binary.length(); i++) {
         if (binary[i] == ' ') {
-            asciiChar = static_cast<char>(binary_to_decimal(binary_segment) + '0');
-            decrypted += asciiChar;
+            while(binary_segment.length() < 8) {
+                binary_segment += " ";
+            }
+            asciiChar = static_cast<char>(binary_to_decimal(binary_segment));
+            decrypted.push_back(asciiChar);
             binary_segment = "";
             i++;
         }
         binary_segment += binary[i];
     }
-    asciiChar = static_cast<char>(binary_to_decimal(binary_segment) + '0');
-    decrypted += char(binary_to_decimal(binary_segment));
+    asciiChar = static_cast<char>(binary_to_decimal(binary_segment));
+    decrypted.push_back(asciiChar);
+
+    reverse(decrypted.begin(), decrypted.end());
 
     cout<<decrypted<<endl;
 
