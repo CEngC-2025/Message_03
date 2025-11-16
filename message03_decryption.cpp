@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <algorithm>
 #include <cmath>
 
@@ -13,6 +12,9 @@ string decimal_to_binary(int dec) {
         dec /= 2;
     }
     reverse(bin.begin(), bin.end());
+    while(bin.length() < 8) { //pads with leading 0s to ensure returns 8 bits
+        bin = "0" + bin;      //was what was causing error when bits were reversed (e.g. 00001101 -> 10110000 not 1011, and unrecognized ascii)
+    }
     return bin;
 }
 
@@ -46,20 +48,16 @@ int main() {
     
     char asciiChar;
 
-    //FIXED IT
     for (int i = 0; i < binary.length(); i++) {
         if (binary[i] == ' ') {
-            while(binary_segment.length() < 8) {
-                binary_segment += " ";
-            }
-            asciiChar = static_cast<char>(binary_to_decimal(binary_segment));
+            asciiChar = binary_to_decimal(binary_segment);
             decrypted.push_back(asciiChar);
             binary_segment = "";
             i++;
         }
         binary_segment += binary[i];
     }
-    asciiChar = static_cast<char>(binary_to_decimal(binary_segment));
+    asciiChar = binary_to_decimal(binary_segment);
     decrypted.push_back(asciiChar);
 
     reverse(decrypted.begin(), decrypted.end());
