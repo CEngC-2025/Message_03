@@ -14,6 +14,6 @@ Log 3: It's only a matter of time until my plan is executed...
 4. Finally, convert decimal chunks into ASCII characters
 
 # How it works
-1. Run message03_decryption.cpp
+1. Run main.cpp
 2. Input the encrypted code
 3. Outputs the decrypted password for message 4
